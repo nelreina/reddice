@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import FormField from './SignupField.js';
 import Timezone from './SignupTimezone.js';
@@ -22,7 +23,8 @@ class SignupForm extends React.Component {
 	}
 	onSubmit(evt) {
 		evt.preventDefault();
-		console.log(this.state);
+		axios.post('/api/users', { user: this.state })
+		.then(response => console.log(response));
 	}
 	render() {
 		const { email, username, password, passwordConfirmation, timezone } = this.state;
