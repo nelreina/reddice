@@ -26,9 +26,10 @@ app.get('/*', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
+	console.log(req.body);
 	res.setHeader('Content-Type', 'text/plain');
-   res.write('you posted:\n');
-   res.end(JSON.stringify(req.body, null, 2));
+	res.write('you posted:\n');
+	res.end(JSON.stringify(req.body, null, 2));
 });
 
 /* eslint-disable */
