@@ -14,7 +14,8 @@
     "express": "^4.14.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "validator": "^5.5.0"
   },
   "devDependencies": {
     "axios": "^0.13.1",

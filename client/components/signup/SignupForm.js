@@ -15,6 +15,7 @@ class SignupForm extends React.Component {
 			password: '',
 			passwordConfirmation: '',
 			timezone: '',
+			errors: {}
 		};
 	}
 	onChange(evt) {
@@ -23,32 +24,39 @@ class SignupForm extends React.Component {
 	}
 	onSubmit(evt) {
 		evt.preventDefault();
-		this.props.userSignupRequest(this.state);
+		this.setState({ errors: {} });
+		this.props.userSignupRequest(this.state).then(
+			(response) => console.log(response.data),
+			({response}) => this.setState({ errors: response.data })
+			// (response) => this.setState()
+		)
+		;
 	}
 	render() {
-		const { email, username, password, passwordConfirmation, timezone } = this.state;
+		const { email, username, password, passwordConfirmation, timezone, errors } = this.state;
 		return (
 			<form onSubmit={this.onSubmit}>
 				<h3>Join our community</h3>
 
 				<FormField name="username" label="User name" onChange={this.onChange}
-					value={username}
+					value={username} error={errors.username}
 				/>
 
 				<FormField name="email" label="Email" onChange={this.onChange}
-					value={email}
+					value={email} error={errors.email}
 				/>
 
 				<FormField name="password" label="Password" onChange={this.onChange}
-					value={password} type="password"
+					value={password} type="password" error={errors.password}
 				/>
 
 				<FormField name="passwordConfirmation"
 					label="Confirm Password" onChange={this.onChange}
 					value={passwordConfirmation} type="password"
+					error={errors.passwordConfirmation}
 				/>
 
-			<Timezone onChange={this.onChange} value={timezone} />
+				<Timezone onChange={this.onChange} value={timezone} error={errors.timezone} />
 
 				<div className="form-group">
 					<button className="btn btn-primary btn-lg">Sign Up</button>

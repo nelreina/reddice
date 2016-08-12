@@ -1,7 +1,8 @@
 import React from 'react';
+import FieldError from './SignupFieldError';
 
-export default ({ name, label, value, onChange, type }) => (
-	<div className="form-group">
+export default ({ name, label, value, onChange, type, error }) => (
+	<div className={error ? "has-error" : "form-group"}>
 		<label htmlFor="" className="control-label">{label}</label>
 		<input
 			value={value}
@@ -10,5 +11,6 @@ export default ({ name, label, value, onChange, type }) => (
 			name={name}
 			className="form-control"
 		/>
+		<FieldError error={error} />
 	</div>
 );
