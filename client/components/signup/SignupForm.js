@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import FormField from './SignupField.js';
 import Timezone from './SignupTimezone.js';
+import validateInput from '../../../lib/validation/signup';
 
 class SignupForm extends React.Component {
 	constructor(props) {
@@ -22,14 +23,22 @@ class SignupForm extends React.Component {
 		const { name, value } = evt.target;
 		this.setState({ [name]: value });
 	}
+	isValid(data) {
+		const { errors, isValid } = validateInput(data);
+		this.setState({ errors });
+		return isValid;
+	}
+
 	onSubmit(evt) {
 		evt.preventDefault();
 		this.setState({ errors: {} });
-		this.props.userSignupRequest(this.state).then(
-			(response) => console.log(response.data),
-			({response}) => this.setState({ errors: response.data })
-			// (response) => this.setState()
-		)
+		if (this.isValid(this.state)) {
+			this.props.userSignupRequest(this.state).then(
+				(response) => console.log(response.data),
+				({response}) => this.setState({ errors: response.data })
+				// (response) => this.setState()
+			)
+		}
 		;
 	}
 	render() {
