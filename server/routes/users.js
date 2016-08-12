@@ -5,10 +5,11 @@ const router = Router();
 
 router.post('/', (req, res) => {
 	const { errors, isValid } = validateInput(req.body.user || {} );
-	if (!isValid) {
-		res.status(400).json(errors);
+	if (isValid) {
+		console.log('Valid Input');
+		res.send({success: true});
 	} else {
-		res.send('OK');
+		res.status(400).json(errors);
 	}
 });
 
