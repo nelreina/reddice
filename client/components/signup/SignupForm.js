@@ -11,10 +11,10 @@ class SignupForm extends React.Component {
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.state = {
-			username: '',
-			email: '',
-			password: '',
-			passwordConfirmation: '',
+			username: 'nelreina',
+			email: 'nelreina@gmail.com',
+			password: 'xxx',
+			passwordConfirmation: 'xxx',
 			timezone: '',
 			errors: {}
 		};
@@ -35,6 +35,7 @@ class SignupForm extends React.Component {
 		if (this.isValid(this.state)) {
 			this.props.userSignupRequest(this.state).then(
 				(response) => {
+					this.props.addFlashMessage({ type:'success', text:'Succesfully sign up!'});
 					this.context.router.push('/');
 				},
 				({response}) => this.setState({ errors: response.data })
@@ -77,7 +78,8 @@ class SignupForm extends React.Component {
 }
 
 SignupForm.propTypes = {
-	userSignupRequest: React.PropTypes.func.isRequired
+	userSignupRequest: React.PropTypes.func.isRequired,
+	addFlashMessage: React.PropTypes.func.isRequired
 }
 SignupForm.contextTypes = {
 	router: React.PropTypes.object.isRequired

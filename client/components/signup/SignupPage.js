@@ -3,18 +3,26 @@ import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
 
 import { userSignupRequest } from '../../actions/signupActions';
+import { addFlashMessage } from '../../actions/flashMessages';
 
 class SignupPage extends React.Component {
 	render() {
-		const { userSignupRequest } = this.props;
+		const { userSignupRequest, addFlashMessage } = this.props;
 		return (
 			<div className="row">
 				<div className="col-md-4 col-md-offset-4">
-					<SignupForm userSignupRequest={userSignupRequest} />
+					<SignupForm 
+						userSignupRequest={userSignupRequest}
+						addFlashMessage={addFlashMessage}
+					/>
 				</div>
 			</div>
 		);
 	}
 }
 const mapState = state => state;
-export default connect(mapState, { userSignupRequest })(SignupPage);
+const mapActionProps = {
+	userSignupRequest,
+	addFlashMessage
+}
+export default connect(mapState, mapActionProps)(SignupPage);
